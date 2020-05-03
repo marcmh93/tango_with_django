@@ -7,10 +7,6 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 
-
-
-
-
 def index(request):
     category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
@@ -63,7 +59,7 @@ def add_category(request):
 
     return render(request, 'rango/add_category.html', {'form': form})
 
-
+@login_required
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -118,9 +114,9 @@ def register(request):
 
     return render(request,
                   'rango/register.html',
-                  context = {'user_form': user_form,
-                             'profile_form': profile_form,
-                             'registered': registered})
+                  context={'user_form': user_form,
+                           'profile_form': profile_form,
+                           'registered': registered})
 
 
 def user_login(request):
@@ -142,7 +138,6 @@ def user_login(request):
         return render(request, 'rango/login.html')
 
 
-
 @login_required
 def restricted(request):
     return HttpResponse("Since you're logged in, you can see this text!")
@@ -154,5 +149,3 @@ def user_logout(request):
     logout(request)
     # Take the user back to the homepage.
     return redirect(reverse('rango:index'))
-
-
