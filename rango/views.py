@@ -13,6 +13,6 @@ def index(request):
     return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):
-    context_dict = {'message': "FF7 original is better than remake."}
+    context_dict = {'message': "Rango says this is the about page."}
 
     return render(request, 'rango/about.html', context=context_dict)
