@@ -6,11 +6,18 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from rango.Top_Categories_Models import Top_Categories_Models
+
 
 
 def index(request):
-    category_list = Category.objects.order_by('-likes')[:5]
+    #category_list = Category.objects.order_by('-likes')[:5]
     page_list = Page.objects.order_by('-views')[:5]
+
+
+    #add stubs
+    categories = Top_Categories_Models(Category)
+    category_list = categories.getTopCategories()
 
     context_dict = {}
     context_dict['boldmessage'] = 'Crunchy, creamy, cookie, candy, cupcake!'
